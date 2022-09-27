@@ -22,14 +22,15 @@ config_path="${directory}/${config_file}"
 privatekey_path="${directory}/privatekey"
 publickey_path="${directory}/publickey"
 
-sudo sh -c "wg genkey | tee ${privatekey_path} | wg pubkey | tee ${publickey_path}"
-sudo sh -c "echo '[Interface]' > $config_path"
-sudo sh -c "echo 'PrivateKey = $(cat ${privatekey_path})' >> $config_path"
-sudo sh -c "echo 'Address = $address/24' >> $config_path"
-sudo sh -c "echo 'ListenPort = $port' >> $config_path"
-sudo sh -c "echo 'PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -t nat -A POSTROUTING -o $iface -j MASQUERADE' >> $config_path"
-sudo sh -c "echo 'PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -o $iface -j MASQUERADE' >> $config_path"
-sudo sh -c "echo '\n' >> $config_path"
+wg genkey | tee ${privatekey_path} | wg pubkey | tee ${publickey_path}
+echo '[Interface]' > $config_path
+echo 'PrivateKey = $(cat ${privatekey_path})' >> $config_path
+echo 'Address = $address/24' >> $config_path
+echo 'ListenPort = $port' >> $config_path
+echo 'PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -t nat -A POSTROUTING -o $iface -j MASQUERADE' >> $config_path
+echo 'PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -o $iface -j MASQUERADE' >> $config_path
+echo '\n' >> $config_path"
+systemctl restart wg-quick@wg0.service
 
 echo
 echo "New config saved at ${config_path}"
