@@ -30,8 +30,10 @@ echo 'ListenPort = $port' >> $config_path
 echo 'PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -t nat -A POSTROUTING -o $iface -j MASQUERADE' >> $config_path
 echo 'PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -o $iface -j MASQUERADE' >> $config_path
 echo '\n' >> $config_path"
-systemctl restart wg-quick@wg0.service
 
 echo
 echo "New config saved at ${config_path}"
 echo
+
+echo "Restarting WireGuard..."
+systemctl restart wg-quick@wg0.service
