@@ -5,6 +5,7 @@ DEFAULT_IP=10.0.1.2
 DEFAULT_CONFIG_FILE=wg0.conf
 DEFAULT_PORT=51820
 
+echo
 read -p "Please enter WireGuard directory [$DEFAULT_DIRECTORY]: " directory
 read -p "Please enter client name: " client_name
 read -p "Please enter cient IP [$DEFAULT_IP]: " client_ip
@@ -34,7 +35,7 @@ echo "New client added to server config at ${server_config_path}"
 
 sudo sh -c "echo '[Interface]' > ${client_config_path}"
 sudo sh -c "echo 'PrivateKey = $(cat $privatekey_path)' >> ${client_config_path}"
-sudo sh -c "echo 'Address = ${client_ip}' >> ${client_config_path}"
+sudo sh -c "echo 'Address = ${client_ip}/32' >> ${client_config_path}"
 sudo sh -c "echo 'DNS = 8.8.8.8' >> ${client_config_path}"
 sudo sh -c "echo '' >> ${client_config_path}"
 sudo sh -c "echo '[Peer]' >> ${client_config_path}"
