@@ -6,6 +6,7 @@ DEFAULT_ADDRESS=10.0.1.1
 DEFAULT_PORT=51820
 DEFAULT_INTERFACE=en0
 
+echo
 read -p "Please enter WireGuard directory [$DEFAULT_DIRECTORY]: " directory
 read -p "Please enter the address for the new endpoint [$DEFAULT_ADDRESS]: " address
 read -p "Please enter the port [${DEFAULT_PORT}]: " port
