@@ -16,7 +16,7 @@ client_ip=${client_ip:-$DEFAULT_IP}
 server_config_file=${server_config_file:-$DEFAULT_CONFIG_FILE}
 endpoint_port=${endpoint_port:-$DEFAULT_PORT}
 
-server_pubkey="cat ${directory}/publickey"
+server_pubkey="$(cat ${directory}/publickey)"
 endpoint_ip=$(curl ifconfig.me)
 client_config_path="${directory}/clients/${client_name}.conf"
 privatekey_path="${directory}/clients/${client_name}_privatekey"
