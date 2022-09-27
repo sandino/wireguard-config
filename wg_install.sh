@@ -23,13 +23,13 @@ privatekey_path="${directory}/privatekey"
 publickey_path="${directory}/publickey"
 
 wg genkey | tee ${privatekey_path} | wg pubkey | tee ${publickey_path}
-echo '[Interface]' > $config_path
-echo 'PrivateKey = $(cat ${privatekey_path})' >> $config_path
-echo 'Address = $address/24' >> $config_path
-echo 'ListenPort = $port' >> $config_path
-echo 'PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -t nat -A POSTROUTING -o $iface -j MASQUERADE' >> $config_path
-echo 'PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -o $iface -j MASQUERADE' >> $config_path
-echo '\n' >> $config_path"
+echo "[Interface]" > $config_path
+echo "PrivateKey = $(cat ${privatekey_path})" >> $config_path
+echo "Address = $address/24" >> $config_path
+echo "ListenPort = $port" >> $config_path
+echo "PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -t nat -A POSTROUTING -o $iface -j MASQUERADE" >> $config_path
+echo "PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -o $iface -j MASQUERADE" >> $config_path
+echo "\n" >> $config_path"
 
 echo
 echo "New config saved at ${config_path}"

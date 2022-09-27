@@ -25,28 +25,25 @@ server_config_path="${directory}/${server_config_file}"
 
 wg genkey | tee ${privatekey_path} | wg pubkey > ${publickey_path}
 
-echo '' >> ${server_config_path}
-echo '[Peer]' >> ${server_config_path}
-echo 'PublicKey = $(cat $publickey_path)' >> ${server_config_path}
-echo 'AllowedIPs = ${client_ip}/32' >> ${server_config_path}
+echo "" >> ${server_config_path}
+echo "[Peer]" >> ${server_config_path}
+echo "PublicKey = $(cat $publickey_path)" >> ${server_config_path}
+echo "AllowedIPs = ${client_ip}/32" >> ${server_config_path}
 echo
 
-echo 'New client added to server config at ${server_config_path}'
+echo "New client added to server config at ${server_config_path}"
 
-echo '[Interface]' > ${client_config_path}
-echo 'PrivateKey = $(cat $privatekey_path)' >> ${client_config_path}
-echo 'Address = ${client_ip}/32' >> ${client_config_path}
-echo 'DNS = 8.8.8.8' >> ${client_config_path}
-echo '' >> ${client_config_path}
-echo '[Peer]' >> ${client_config_path}
-echo 'PublicKey = ${server_pubkey}' >> ${client_config_path}
-echo 'Endpoint = ${endpoint_ip}:${endpoint_port}' >> ${client_config_path}
-echo 'AllowedIPs = 0.0.0.0/0' >> ${client_config_path}
-echo 'PersistentKeepalive = 20' >> ${client_config_path}
-echo '' >> ${client_config_path}
+echo "[Interface]" > ${client_config_path}
+echo "PrivateKey = $(cat $privatekey_path)" >> ${client_config_path}
+echo "Address = ${client_ip}/32" >> ${client_config_path}
+echo "DNS = 8.8.8.8" >> ${client_config_path}
+echo "" >> ${client_config_path}
+echo "[Peer]" >> ${client_config_path}
+echo "PublicKey = ${server_pubkey}" >> ${client_config_path}
+echo "Endpoint = ${endpoint_ip}:${endpoint_port}" >> ${client_config_path}
+echo "AllowedIPs = 0.0.0.0/0" >> ${client_config_path}
+echo "PersistentKeepalive = 20" >> ${client_config_path}
+echo "" >> ${client_config_path}
 
-echo 'New client config created at ${client_config_path}'
+echo "New client config created at ${client_config_path}"
 echo
-
-echo "Restarting WireGuard..."
-systemctl restart wg-quick@wg0.service
