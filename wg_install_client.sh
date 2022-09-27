@@ -9,8 +9,6 @@ echo
 read -p "Please enter WireGuard directory [$DEFAULT_DIRECTORY]: " directory
 read -p "Please enter client name: " client_name
 read -p "Please enter cient IP [$DEFAULT_IP]: " client_ip
-read -p "Please enter server public key: " server_pubkey
-read -p "Please enter server endpoint IP: " endpoint_ip
 read -p "Please enter server endpoint port [${DEFAULT_PORT}]:" endpoint_port
 
 directory=${directory:-$DEFAULT_DIRECTORY}
@@ -18,6 +16,8 @@ client_ip=${client_ip:-$DEFAULT_IP}
 server_config_file=${server_config_file:-$DEFAULT_CONFIG_FILE}
 endpoint_port=${endpoint_port:-$DEFAULT_PORT}
 
+server_pubkey="cat ${directory}/publickey"
+endpoint_ip=$(curl ifconfig.me)
 client_config_path="${directory}/clients/${client_name}.conf"
 privatekey_path="${directory}/clients/${client_name}_privatekey"
 publickey_path="${directory}/clients/${client_name}_publickey"
@@ -50,3 +50,7 @@ echo
 
 echo "Restarting WireGuard..."
 systemctl restart wg-quick@wg0.service
+echo
+
+qrencode -t ansiutf8 < ${client_config_path}
+echo
