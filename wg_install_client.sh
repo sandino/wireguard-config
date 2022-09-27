@@ -41,6 +41,7 @@ sudo sh -c "echo '[Peer]' >> ${client_config_path}"
 sudo sh -c "echo 'PublicKey = ${server_pubkey}' >> ${client_config_path}"
 sudo sh -c "echo 'Endpoint = ${endpoint_ip}:${endpoint_port}' >> ${client_config_path}"
 sudo sh -c "echo 'AllowedIPs = 0.0.0.0/0' >> ${client_config_path}"
+sudo sh -c "echo 'PersistentKeepalive = 20' >> ${client_config_path}"
 sudo sh -c "echo '' >> ${client_config_path}"
 
 echo "New client config created at ${client_config_path}"
