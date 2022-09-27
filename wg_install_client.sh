@@ -47,3 +47,6 @@ echo "" >> ${client_config_path}
 
 echo "New client config created at ${client_config_path}"
 echo
+
+echo "Restarting WireGuard..."
+systemctl restart wg-quick@wg0.service
